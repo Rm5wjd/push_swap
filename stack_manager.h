@@ -42,4 +42,7 @@ void	reverse_a_or_b(t_stack *sp);
 void	read_stdin(t_stack *a, t_stack *b);
 void	instruction_check(char *buf, t_stack *a, t_stack *b);
 int	sort_check(t_stack *a, t_stack *b);
+int	is_str_digit(const char *s);
+void	input_error(int argc, char *argv[], t_stack *a, int *digit_len);
+void	add_split_digit(char *argv[], t_stack *a, int i, int *digit_len);
 #endif
