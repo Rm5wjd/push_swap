@@ -1,5 +1,11 @@
+# ifndef STACK_MANAGER_H
+#define STACK_MANAGER_H
+
 #include <stdlib.h>
 #include <stdio.h>
+#include "./libft/libft.h"
+#include "./libft/get_next_line/get_next_line.h"
+
 typedef struct s_stacknode t_stacknode;
 typedef struct s_stack t_stack;
 struct s_stacknode
@@ -31,3 +37,9 @@ void	swap_a_or_b(t_stack *sp);
 void	push_a_or_b(t_stack *to, t_stack *from);
 void	rotate_a_or_b(t_stack *sp);
 void	reverse_a_or_b(t_stack *sp);
+
+//main
+void	read_stdin(t_stack *a, t_stack *b);
+void	instruction_check(char *buf, t_stack *a, t_stack *b);
+int	sort_check(t_stack *a, t_stack *b);
+#endif

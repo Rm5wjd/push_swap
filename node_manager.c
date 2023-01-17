@@ -60,8 +60,6 @@ void	add_back(t_stack *sp, int data)
 
 	if (!sp)
 		return ;
-	if (is_stack_empty(sp))
-		return ;
 	node = (t_stacknode *)malloc(sizeof(t_stacknode));
 	tail_node = sp->tail;
 	node->data = data;
