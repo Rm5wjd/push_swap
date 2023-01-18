@@ -14,6 +14,11 @@ int main(int argc, char *argv[])
 	if (argc < 2)
 		return (0);
 	input_error(argc, argv, &a, &digit_len);
+	if (!overlap_check(argc, argv, digit_len))
+	{
+		printf("Error\n");
+		return (1);
+	}
 	read_stdin(&a, &b);
 	if (sort_check(&a, &b))
 		printf("OK\n");
@@ -39,32 +44,10 @@ void	read_stdin(t_stack *a, t_stack *b)
 	}
 }
 
-int	overlap_check(int argc, char *argv[], t_stack *a, int digit_len)
-{
-	int		i;
-	int		index;
-	int		*arr;
-
-	i = 1;
-	index = 0;
-	arr = (int *)malloc(sizeof(int) * digit_len);
-	if (!arr)
-		return (0);
-	while (i < argc)
-	{
-		if (ft_strchr(argv[i], ' '))
-			add_arr_digit(argv, i, &index, arr);
-		else
-			arr[index++] = ft_atoi(argv[i]);
-		i++;
-	}
-	// 배열 정렬
-	// 정렬된 배열 중복 체크
-}
 // 숫자가 아닌 문자 처리
 void	input_error(int argc, char *argv[], t_stack *a, int *digit_len)
 {
-	int		i;
+	int	i;
 
 	i = 1;
 	while (i < argc)
@@ -93,6 +76,11 @@ void	add_split_digit(char *argv[], t_stack *a, int i, int *digit_len)
 	j = 0;
 	split_input = 0;
 	split_input = ft_split(argv[i], ' ');
+	if (split_input[0] == 0)
+	{
+		printf("Error\n");
+		exit(1);
+	}
 	while (split_input[j])
 	{
 		if (!is_str_digit(split_input[j]))
@@ -104,7 +92,7 @@ void	add_split_digit(char *argv[], t_stack *a, int i, int *digit_len)
 		(*digit_len)++;
 		j++;
 	}
-	// split free
+	free_split(split_input);
 }
 
 void	add_arr_digit(char *argv[], int i, int *index, int *arr)
@@ -121,8 +109,9 @@ void	add_arr_digit(char *argv[], int i, int *index, int *arr)
 		(*index)++;
 		j++;
 	}
-	// split free
+	free_split(split_input);
 }
+
 int	is_str_digit(const char *s)
 {
 	// +, -, 숫자만
@@ -179,26 +168,4 @@ void	instruction_check(char *buf, t_stack *a, t_stack *b)
 		reverse_a_or_b(a);
 		reverse_a_or_b(b);
 	}
-}
-// a, b 정렬 확인 함수
-int	sort_check(t_stack *a, t_stack *b)
-{
-	t_stacknode	*head_node;
-	int			data;
-	int			temp;
-
-	head_node = a->head->next;
-	data = 0;
-	temp = 0;
-	while (head_node->next != a->tail)
-	{
-		data = head_node->data;
-		temp = head_node->next->data;
-		if (temp < data)
-			return (0);
-		head_node = head_node->next;
-	}
-	if (!is_stack_empty(b))
-		return (0);
-	return (1);
 }

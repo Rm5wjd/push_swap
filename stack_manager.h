@@ -45,4 +45,13 @@ int	sort_check(t_stack *a, t_stack *b);
 int	is_str_digit(const char *s);
 void	input_error(int argc, char *argv[], t_stack *a, int *digit_len);
 void	add_split_digit(char *argv[], t_stack *a, int i, int *digit_len);
+
+int	overlap_check(int argc, char *argv[], int digit_len);
+int	arr_overlap_check(int *arr, int digit_len);
+void	swap(int *a, int *b);
+void	quick_sort(int left, int right, int *data);
+void	add_arr_digit(char *argv[], int i, int *index, int *arr);
+
+// free_util
+void	free_split(char **split_str);
 #endif
