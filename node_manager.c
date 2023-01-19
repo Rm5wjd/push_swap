@@ -1,23 +1,5 @@
 #include "stack_manager.h"
 
-// int main()
-// {
-// 	t_stack	*stack;
-// 	int	data;
-
-// 	stack = (t_stack *)malloc(sizeof(t_stack));
-// 	data = 0;
-
-// 	create_stack(stack);
-// 	push(stack, 10);
-// 	push(stack, 20);
-// 	push(stack, 30);
-// 	push(stack, 40);
-// 	pop(stack, &data);
-// 	print_stack(stack);
-// 	printf("%d", data);
-// }
-
 int	create_stack(t_stack *sp)
 {
 	if (!sp)

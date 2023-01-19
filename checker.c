@@ -168,4 +168,9 @@ void	instruction_check(char *buf, t_stack *a, t_stack *b)
 		reverse_a_or_b(a);
 		reverse_a_or_b(b);
 	}
+	else
+	{
+		printf("Error\n");
+		exit(1);
+	}
 }

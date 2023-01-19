@@ -19,7 +19,9 @@ int	overlap_check(int argc, char *argv[], int digit_len)
 			arr[index++] = ft_atoi(argv[i]);
 		i++;
 	}
+	printf("quickSort start\n");
 	quick_sort(0, digit_len - 1, arr);
+	printf("quickSort end\n");
 	if (!arr_overlap_check(arr, digit_len))
 	{
 		free(arr);
@@ -52,31 +54,31 @@ void	swap(int *a, int *b)
 	*b = t;
 }
 
-void	quick_sort(int left, int right, int *data)
+void	quick_sort(int start, int end, int *data)
 {
 	int	pivot;
-	int	j;
-	int	i;
+	int	right;
+	int	left;
 
-	pivot = left;
-	j = pivot;
-	i = left + 1;
-	if (left < right)
+	pivot = start;
+	right = end;
+	left = start + 1;
+	if (left >= right)
+		return ;
+	while (right >= left)
 	{
-		while (i <= right)
-		{
-			if (data[i] < data[pivot])
-			{
-				j++;
-				swap(&data[j], &data[i]);
-			}
-			i++;
-		}
-		swap(&data[left], &data[j]);
-		pivot = j;
-		quick_sort(left, pivot - 1, data);
-		quick_sort(pivot + 1, right, data);
+		while (data[left] < data[pivot])
+			left++;
+		while (data[right] > data[pivot])
+			right--;
+		if (left < right)
+			swap(&data[left], &data[right]);
+		else
+			break;
 	}
+	swap(&data[pivot], &data[right]);
+	quick_sort(0, right - 1, data);
+	quick_sort(right + 1, end, data);
 }
 
 int	sort_check(t_stack *a, t_stack *b)
