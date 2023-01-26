@@ -19,12 +19,15 @@ int	*overlap_check(int argc, char *argv[], int digit_len)
 			arr[index++] = ft_atoi(argv[i]);
 		i++;
 	}
+	//printf("arr create\n");
 	quick_sort(0, digit_len - 1, arr);
+	//printf("quick_sort complete\n");
 	if (!arr_overlap_check(arr, digit_len))
 	{
 		free(arr);
 		exit(0);
 	}
+	//printf("overlap_check complete\n");
 	return (arr);
 }
 
@@ -64,9 +67,9 @@ void	quick_sort(int start, int end, int *data)
 		return ;
 	while (right >= left)
 	{
-		while (data[left] < data[pivot])
+		while (data[left] < data[pivot] && left <= end)
 			left++;
-		while (data[right] > data[pivot])
+		while (data[right] > data[pivot] && right >= pivot + 1)
 			right--;
 		if (left < right)
 			swap(&data[left], &data[right]);

@@ -14,16 +14,15 @@ int main(int argc, char *argv[])
 	if (argc < 2)
 		return (0);
 	input_error(argc, argv, &a, &digit_len);
-	if (!overlap_check(argc, argv, digit_len))
-	{
-		printf("Error\n");
-		return (1);
-	}
+	// printf("input_error check\n");
 	// 파티셔닝
+	partitioning(&a, &b, digit_len, overlap_check(argc, argv, digit_len));
+	// printf("partitioning complete\n");
 	// 정렬
-	printf("-----stack a-----\n");
-	print_stack(&a);
-	printf("-----stack b-----\n");
-	print_stack(&b);
+	greedy(&a, &b);
+	// printf("-----stack a-----\n");
+	// print_stack(&a);
+	// printf("-----stack b-----\n");
+	// print_stack(&b);
 	return (0);
 }

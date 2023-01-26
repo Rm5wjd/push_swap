@@ -44,7 +44,7 @@ void	add_split_digit(char *argv[], t_stack *a, int i, int *digit_len)
 			printf("Error\n");
 			exit(1);
 		}
-		add_back(a, ft_atoi(split_input[j]));
+		add_back(a, ft_atoi(split_input[j]), i - 1);
 		(*digit_len)++;
 		j++;
 	}

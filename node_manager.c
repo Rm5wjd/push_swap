@@ -11,7 +11,11 @@ int	create_stack(t_stack *sp)
 	if (!(sp->tail))
 		return (0);
 	sp->head->data = 0;
+	sp->head->index = -1;
+	ft_bzero(&sp->head->ops, sizeof(sp->head->ops));
 	sp->tail->data = 0;
+	sp->tail->index = -1;
+	ft_bzero(&sp->tail->ops, sizeof(sp->tail->ops));
 	sp->head->prev = sp->head;
 	sp->head->next = sp->tail;
 	sp->tail->prev = sp->head;
@@ -30,6 +34,7 @@ void	add_front(t_stack *sp, int data, int index)
 	node = (t_stacknode *)malloc(sizeof(t_stacknode));
 	head_node = sp->head;
 	node->data = data;
+	node->index = index;
 	node->prev = head_node;
 	node->next = head_node->next;
 	head_node->next->prev = node;
@@ -47,6 +52,7 @@ void	add_back(t_stack *sp, int data, int index)
 	node = (t_stacknode *)malloc(sizeof(t_stacknode));
 	tail_node = sp->tail;
 	node->data = data;
+	node->index = index;
 	node->next = tail_node;
 	node->prev = tail_node->prev;
 	tail_node->prev->next = node;
