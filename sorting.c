@@ -1,6 +1,6 @@
 #include "stack_manager.h"
 
-int	overlap_check(int argc, char *argv[], int digit_len)
+int	*overlap_check(int argc, char *argv[], int digit_len)
 {
 	int		i;
 	int		index;
@@ -19,16 +19,13 @@ int	overlap_check(int argc, char *argv[], int digit_len)
 			arr[index++] = ft_atoi(argv[i]);
 		i++;
 	}
-	printf("quickSort start\n");
 	quick_sort(0, digit_len - 1, arr);
-	printf("quickSort end\n");
 	if (!arr_overlap_check(arr, digit_len))
 	{
 		free(arr);
-		return (0);
+		exit(0);
 	}
-	free(arr);
-	return (1);
+	return (arr);
 }
 
 int	arr_overlap_check(int *arr, int digit_len)
@@ -74,7 +71,7 @@ void	quick_sort(int start, int end, int *data)
 		if (left < right)
 			swap(&data[left], &data[right]);
 		else
-			break;
+			break ;
 	}
 	swap(&data[pivot], &data[right]);
 	quick_sort(0, right - 1, data);

@@ -14,6 +14,9 @@ void	swap_a_or_b(t_stack *sp)
 	temp = cur->data;
 	cur->data = next->data;
 	next->data = temp;
+	temp = cur->index;
+	cur->index = next->index;
+	next->index = cur->index;
 }
 
 void	push_a_or_b(t_stack *to, t_stack *from)
@@ -25,7 +28,9 @@ void	push_a_or_b(t_stack *to, t_stack *from)
 		return ;
 	data = from->head->next->data;
 	delete_front(from);
-	add_front(to, data);
+	node_index_down(from);
+	add_front(to, data, -1);
+	node_index_up(to);
 }
 
 void	rotate_a_or_b(t_stack *sp)
@@ -37,7 +42,8 @@ void	rotate_a_or_b(t_stack *sp)
 		return ;
 	data = sp->head->next->data;
 	delete_front(sp);
-	add_back(sp, data);
+	node_index_down(sp);
+	add_back(sp, data, sp->len);
 }
 
 void	reverse_a_or_b(t_stack *sp)
@@ -49,5 +55,6 @@ void	reverse_a_or_b(t_stack *sp)
 		return ;
 	data = sp->tail->prev->data;
 	delete_back(sp);
-	add_front(sp, data);
+	node_index_up(sp);
+	add_front(sp, data, 0);
 }

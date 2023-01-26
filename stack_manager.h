@@ -8,22 +8,35 @@
 
 typedef struct s_stacknode t_stacknode;
 typedef struct s_stack t_stack;
+typedef struct s_operations t_op;
 struct s_stacknode
 {
 	int			data;
+	int			index;
 	t_stacknode	*prev;
 	t_stacknode	*next;
+	t_op		*ops;
 };
 struct s_stack
 {
+	int			len;
 	t_stacknode	*head;
 	t_stacknode	*tail;
+};
+struct s_operations
+{
+	int	rb;
+	int	rrb;
+	int	ra;
+	int	rra;
+	int	sa;
+	int sum;
 };
 
 // node_manager
 int create_stack(t_stack *sp);
-void add_front(t_stack *sp, int data);
-void add_back(t_stack *sp, int data);
+void add_front(t_stack *sp, int data, int index);
+void add_back(t_stack *sp, int data, int index);
 void delete_front(t_stack *sp);
 void delete_back(t_stack *sp);
 
@@ -38,20 +51,7 @@ void	push_a_or_b(t_stack *to, t_stack *from);
 void	rotate_a_or_b(t_stack *sp);
 void	reverse_a_or_b(t_stack *sp);
 
-//main
-void	read_stdin(t_stack *a, t_stack *b);
-void	instruction_check(char *buf, t_stack *a, t_stack *b);
-int	sort_check(t_stack *a, t_stack *b);
-int	is_str_digit(const char *s);
-void	input_error(int argc, char *argv[], t_stack *a, int *digit_len);
-void	add_split_digit(char *argv[], t_stack *a, int i, int *digit_len);
-
-int	overlap_check(int argc, char *argv[], int digit_len);
-int	arr_overlap_check(int *arr, int digit_len);
-void	swap(int *a, int *b);
-void	quick_sort(int left, int right, int *data);
-void	add_arr_digit(char *argv[], int i, int *index, int *arr);
-
-// free_util
-void	free_split(char **split_str);
+// utils
+void	node_index_down(t_stack *a_or_b);
+void	node_index_up(t_stack *a_or_b)
 #endif

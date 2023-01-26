@@ -16,10 +16,11 @@ int	create_stack(t_stack *sp)
 	sp->head->next = sp->tail;
 	sp->tail->prev = sp->head;
 	sp->tail->next = sp->tail;
+	sp->len = 0;
 	return (1);
 }
 
-void	add_front(t_stack *sp, int data)
+void	add_front(t_stack *sp, int data, int index)
 {
 	t_stacknode	*node;
 	t_stacknode	*head_node;
@@ -33,9 +34,10 @@ void	add_front(t_stack *sp, int data)
 	node->next = head_node->next;
 	head_node->next->prev = node;
 	head_node->next = node;
+	(sp->len)++;
 }
 
-void	add_back(t_stack *sp, int data)
+void	add_back(t_stack *sp, int data, int index)
 {
 	t_stacknode	*node;
 	t_stacknode	*tail_node;
@@ -49,6 +51,7 @@ void	add_back(t_stack *sp, int data)
 	node->prev = tail_node->prev;
 	tail_node->prev->next = node;
 	tail_node->prev = node;
+	(sp->len)++;
 }
 
 void	delete_front(t_stack *sp)
@@ -65,6 +68,7 @@ void	delete_front(t_stack *sp)
 	temp->next->prev = head_node;
 	head_node->next = temp->next;
 	free(temp);
+	(sp->len)--;
 }
 
 void	delete_back(t_stack *sp)
@@ -79,4 +83,5 @@ void	delete_back(t_stack *sp)
 	temp->prev->next = tail_node;
 	tail_node->prev = temp->prev;
 	free(temp);
+	(sp->len)--;
 }

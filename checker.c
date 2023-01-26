@@ -1,49 +1,5 @@
 #include "stack_manager.h"
 
-int main(int argc, char *argv[])
-{
-	int	data;
-	int	digit_len;
-	t_stack	a;
-	t_stack	b;
-
-	data = 0;
-	digit_len = 0;
-	create_stack(&a);
-	create_stack(&b);
-	if (argc < 2)
-		return (0);
-	input_error(argc, argv, &a, &digit_len);
-	if (!overlap_check(argc, argv, digit_len))
-	{
-		printf("Error\n");
-		return (1);
-	}
-	read_stdin(&a, &b);
-	if (sort_check(&a, &b))
-		printf("OK\n");
-	else
-		printf("KO\n");
-	printf("-----stack a-----\n");
-	print_stack(&a);
-	printf("-----stack b-----\n");
-	print_stack(&b);
-	return (0);
-}
-
-// stdin함수
-void	read_stdin(t_stack *a, t_stack *b)
-{
-	char	*buf;
-	
-	buf = get_next_line(0);
-	while (buf)
-	{
-		instruction_check(buf, a, b);
-		buf = get_next_line(0);
-	}
-}
-
 // 숫자가 아닌 문자 처리
 void	input_error(int argc, char *argv[], t_stack *a, int *digit_len)
 {
@@ -61,7 +17,7 @@ void	input_error(int argc, char *argv[], t_stack *a, int *digit_len)
 				printf("Error\n");
 				exit(1);
 			}
-			add_back(a, ft_atoi(argv[i]));
+			add_back(a, ft_atoi(argv[i]), i - 1);
 			(*digit_len)++;
 		}
 		i++;
@@ -133,44 +89,4 @@ int	is_str_digit(const char *s)
 	if(!(s[i] >= '0' && s[i] <= '9') && s[i] != 0)
 		return (0);
 	return (1);
-}
-// instruction check 함수
-void	instruction_check(char *buf, t_stack *a, t_stack *b)
-{
-	if (ft_strncmp("sa\n", buf, 3) == 0)
-		swap_a_or_b(a);
-	else if (ft_strncmp("sb\n", buf, 3) == 0)
-		swap_a_or_b(b);
-	else if (ft_strncmp("ss\n", buf, 3) == 0)
-	{
-		swap_a_or_b(a);
-		swap_a_or_b(b);
-	}
-	else if (ft_strncmp("pa\n", buf, 3) == 0)
-		push_a_or_b(a, b);
-	else if (ft_strncmp("pb\n", buf, 3) == 0)
-		push_a_or_b(b, a);
-	else if (ft_strncmp("ra\n", buf, 3) == 0)
-		rotate_a_or_b(a);
-	else if (ft_strncmp("rb\n", buf, 3) == 0)
-		rotate_a_or_b(b);
-	else if (ft_strncmp("rr\n", buf, 3) == 0)
-	{
-		rotate_a_or_b(a);
-		rotate_a_or_b(b);
-	}
-	else if (ft_strncmp("rra\n", buf, 4) == 0)
-		reverse_a_or_b(a);
-	else if (ft_strncmp("rrb\n", buf, 4) == 0)
-		reverse_a_or_b(b);
-	else if (ft_strncmp("rrr\n", buf, 4) == 0)
-	{
-		reverse_a_or_b(a);
-		reverse_a_or_b(b);
-	}
-	else
-	{
-		printf("Error\n");
-		exit(1);
-	}
 }
