@@ -33,6 +33,11 @@ void	partitioning(t_stack *a, t_stack *b, int digit_len, int *arr)
 		a_headnode = a->head->next;
 		push_a_or_b(b, a);
 	}
+	// printf("-----stack a-----\n");
+	// print_stack(a);
+	// printf("-----stack b-----\n");
+	// print_stack(b);
+	// printf("-----------------\n");
 }
 
 void	rb_rrb_calc(t_stack *b, t_stacknode *b_node)
@@ -73,9 +78,12 @@ void	op_calc(t_stack * b, t_stacknode *b_node, int top, int bot)
 			b_node->ops.ra = 0;
 			b_node->ops.sa = 0;
 		}
-		b_node->ops.rra = bot;
-		b_node->ops.ra = bot + 1;
-		b_node->ops.sa = 0;
+		else
+		{
+			b_node->ops.rra = bot;
+			b_node->ops.ra = bot + 1;
+			b_node->ops.sa = 0;
+		}
 		rb_rrb_calc(b, b_node);
 	}
 	b_node->ops.sum = b_node->ops.ra + b_node->ops.rra + \
@@ -130,53 +138,75 @@ void	greedy(t_stack *a, t_stack *b)
 	int			i;
 	t_stacknode	*min_op_node;
 
-	i = 0;
 	while (b->len != 0)
 	{
 		min_op_node = greedy_op_calc(a, b);
+		printf("-----------------\n");
+		printf("min_op: %d, index: %d\n", min_op_node->data, min_op_node->index);
+		printf("-----stack a-----\n");
+		print_stack(a);
+		printf("-----stack b-----\n");
+		print_stack(b);
+		printf("-----------------\n");
+		printf("rb: %d, rrb: %d, ra: %d, rra: %d, sa: %d\n", \
+		min_op_node->ops.rb, min_op_node->ops.rrb, min_op_node->ops.ra,\
+		min_op_node->ops.rra, min_op_node->ops.sa);
+		i = 0;
 		while (i++ < min_op_node->ops.rb)
+		{
 			rotate_a_or_b(b);
 			printf("rb\n");
+		}
 		i = 0;
 		while (i++ < min_op_node->ops.rrb)
+		{
 			reverse_a_or_b(b);
 			printf("rrb\n");
+		}
 		i = 0;
 		if (min_op_node->ops.ra > min_op_node->ops.rra) // top > bot
 		{
 			while (i++ < min_op_node->ops.rra)
+			{
 				reverse_a_or_b(a);
 				printf("rra\n");
+			}
 			i = 0;
 			push_a_or_b(a, b);
 			printf("pa\n");
 			while (i++ < min_op_node->ops.ra)
+			{
 				rotate_a_or_b(a);
 				printf("ra\n");
+			}
 			i = 0;
 			while (i++ < min_op_node->ops.sa)
+			{
 				swap_a_or_b(a);
 				printf("sa\n");
+			}
 		}
 		else // top <= bot
 		{
 			while (i++ < min_op_node->ops.ra)
+			{
 				rotate_a_or_b(a);
 				printf("ra\n");
+			}
 			i = 0;
 			push_a_or_b(a, b);
 			printf("pa\n");
 			while (i++ < min_op_node->ops.rra)
+			{
 				reverse_a_or_b(a);
 				printf("rra\n");
+			}
 			i = 0;
 			while (i++ < min_op_node->ops.sa)
+			{
 				swap_a_or_b(a);
 				printf("sa\n");
+			}
 		}
-		//printf("-----stack a-----\n");
-		//print_stack(a);
-		//printf("-----stack b-----\n");
-		//print_stack(b);
 	}
 }

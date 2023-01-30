@@ -2,12 +2,10 @@
 
 int main(int argc, char *argv[])
 {
-	int	data;
 	int	digit_len;
 	t_stack	a;
 	t_stack	b;
 
-	data = 0;
 	digit_len = 0;
 	create_stack(&a);
 	create_stack(&b);
@@ -20,9 +18,9 @@ int main(int argc, char *argv[])
 	// printf("partitioning complete\n");
 	// 정렬
 	greedy(&a, &b);
-	// printf("-----stack a-----\n");
-	// print_stack(&a);
-	// printf("-----stack b-----\n");
-	// print_stack(&b);
+	printf("-----stack a-----\n");
+	print_stack(&a);
+	printf("-----stack b-----\n");
+	print_stack(&b);
 	return (0);
 }
