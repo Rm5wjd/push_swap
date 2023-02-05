@@ -63,10 +63,17 @@ void	op_calc(t_stack * b, t_stacknode *b_node, int top, int bot)
 		b_node->ops.rra = 0;
 		rb_rrb_calc(b, b_node);
 	}
-	else if (top >= bot)
+	else if (top == bot)
 	{
 		b_node->ops.ra = top;
 		b_node->ops.rra = top;
+		b_node->ops.sa = 0;
+		rb_rrb_calc(b, b_node);
+	}
+	else if (top > bot)
+	{
+		b_node->ops.rra = bot;
+		b_node->ops.ra = bot + 1;
 		b_node->ops.sa = 0;
 		rb_rrb_calc(b, b_node);
 	}
@@ -80,8 +87,8 @@ void	op_calc(t_stack * b, t_stacknode *b_node, int top, int bot)
 		}
 		else
 		{
-			b_node->ops.rra = bot;
-			b_node->ops.ra = bot + 1;
+			b_node->ops.rra = top;
+			b_node->ops.ra = top;
 			b_node->ops.sa = 0;
 		}
 		rb_rrb_calc(b, b_node);
@@ -141,16 +148,16 @@ void	greedy(t_stack *a, t_stack *b)
 	while (b->len != 0)
 	{
 		min_op_node = greedy_op_calc(a, b);
-		printf("-----------------\n");
-		printf("min_op: %d, index: %d\n", min_op_node->data, min_op_node->index);
-		printf("-----stack a-----\n");
-		print_stack(a);
-		printf("-----stack b-----\n");
-		print_stack(b);
-		printf("-----------------\n");
-		printf("rb: %d, rrb: %d, ra: %d, rra: %d, sa: %d\n", \
-		min_op_node->ops.rb, min_op_node->ops.rrb, min_op_node->ops.ra,\
-		min_op_node->ops.rra, min_op_node->ops.sa);
+		// printf("-----------------\n");
+		// printf("min_op: %d, index: %d\n", min_op_node->data, min_op_node->index);
+		// printf("-----stack a-----\n");
+		// print_stack(a);
+		// printf("-----stack b-----\n");
+		// print_stack(b);
+		// printf("-----------------\n");
+		// printf("rb: %d, rrb: %d, ra: %d, rra: %d, sa: %d\n", \
+		// min_op_node->ops.rb, min_op_node->ops.rrb, min_op_node->ops.ra,\
+		// min_op_node->ops.rra, min_op_node->ops.sa);
 		i = 0;
 		while (i++ < min_op_node->ops.rb)
 		{

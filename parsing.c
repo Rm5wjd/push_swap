@@ -18,9 +18,9 @@ int main(int argc, char *argv[])
 	// printf("partitioning complete\n");
 	// 정렬
 	greedy(&a, &b);
-	printf("-----stack a-----\n");
-	print_stack(&a);
-	printf("-----stack b-----\n");
-	print_stack(&b);
+	// printf("-----stack a-----\n");
+	// print_stack(&a);
+	// printf("-----stack b-----\n");
+	// print_stack(&b);
 	return (0);
 }
